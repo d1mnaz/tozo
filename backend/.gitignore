@@ -1,5 +1,5 @@
 /__pypackages__
-/.mypy_cache
+/.ruff_cache
 .pdm.toml
 .pytest_cache
 .venv
