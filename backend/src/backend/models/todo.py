@@ -10,7 +10,7 @@ class Todo:
     complete: bool
     due: datetime | None
     id: int
-    task: constr(strip_whitespace=True, min_length=1)  # type: ignore
+    task: constr(strip_whitespace=True, min_length=1)
 
 
 async def select_todos(
