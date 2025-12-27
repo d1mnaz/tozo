@@ -6,15 +6,15 @@ authors = [
     {name = "d1mnaz", email = "dimonnaz@gmail.com"},
 ]
 dependencies = [
-    "quart>=0.20.0",
-    "quart-auth>=0.11.0",
-    "argon2-cffi>=25.1.0",
-    "zxcvbn>=4.5.0",
-    "itsdangerous>=2.2.0",
-    "quart-rate-limiter>=0.12.1",
-    "pydantic[email]>=2.12.5",
-    "quart-schema>=0.23.0",
-    "quart-db>=0.11.0"
+    "quart",
+    "quart-auth",
+    "argon2-cffi",
+    "zxcvbn",
+    "itsdangerous",
+    "quart-rate-limiter",
+    "pydantic[email]",
+    "quart-schema",
+    "quart-db"
 ]
 requires-python = "==3.14.*"
 readme = "README.md"
@@ -23,13 +23,15 @@ license = {text = "MIT"}
 
 [dependency-groups]
 dev = [
-    "ruff>=0.14.10",
-    "pytest>=9.0.2",
-    "pytest-asyncio>=1.3.0",
-    "freezegun>=1.5.5",
+    "ruff",
+    "pytest",
+    "pytest-asyncio",
+    "freezegun",
+    "pip-audit",
 ]
 
 [tool.pdm.scripts]
+audit = "pip-audit"
 start = {cmd = "quart --app src/backend/run.py run", env_file = "development.env"}
 # test = {cmd = "pytest tests/", env_file = "testing.env"}
 recreate-db-base = "quart --app src/backend/run.py recreate_db"

@@ -3,15 +3,17 @@ import os
 from subprocess import DEVNULL, call
 from urllib.parse import urlparse
 
-from quart import Quart
+from quart import Quart, Response
 from quart_auth import QuartAuth
 from quart_db import QuartDB
 from quart_rate_limiter import RateLimiter
 from quart_schema import QuartSchema
+from werkzeug.http import COOP
 
 from backend.blueprints.control import blueprint as control_blueprint
 from backend.blueprints.error import blueprint as error_blueprint
 from backend.blueprints.members import blueprint as members_blueprint
+from backend.blueprints.serving import blueprint as serving_blueprint
 from backend.blueprints.sessions import blueprint as sessions_blueprint
 from backend.blueprints.todos import blueprint as todos_blueprint
 
@@ -38,6 +40,7 @@ app.register_blueprint(sessions_blueprint)
 app.register_blueprint(error_blueprint)
 app.register_blueprint(members_blueprint)
 app.register_blueprint(todos_blueprint)
+app.register_blueprint(serving_blueprint)
 
 
 # fmt: off
@@ -69,3 +72,20 @@ def recreate_db() -> None:
         stdout=DEVNULL, stderr=DEVNULL
     )
 # fmt: on
+
+
+@app.after_request
+async def add_headers(response: Response) -> Response:
+    response.content_security_policy.default_src = "'self'"
+    # response.content_security_policy.connect_src = "'self' *.sentry.io"
+    response.content_security_policy.frame_ancestors = "'none'"
+    # response.content_security_policy.report_uri = "https://ingest.sentry.io"
+    response.content_security_policy.style_src = "'self' 'unsafe-inline'"
+    response.cross_origin_opener_policy = COOP.SAME_ORIGIN
+    response.headers["Referrer-Policy"] = "no-referrer, strict-origin-when-cross-origin"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Strict-Transport-Security"] = (
+        "max-age=63072000; includeSubDomains; preload"
+    )
+    return response

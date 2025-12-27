@@ -14,6 +14,8 @@ from backend.models.member import select_member_by_email
 
 blueprint = Blueprint("sessions", __name__)
 
+REFERENCE_HASH = "$argon2id$v=19$m=65536,t=3,p=4$WEkH2pGsLBEzZZcx4pXEFw$/Lnml02WzWsduASnSQyPv8WdGsRKFyERonphzgoyK8I"
+
 
 @dataclass
 class LoginData:
@@ -36,18 +38,24 @@ async def login(data: LoginData) -> ResponseReturnValue:
     By providing credentials and then saving the returned cookie.
     """
     member = await select_member_by_email(g.connection, data.email)
+    password_hash = REFERENCE_HASH
+    if member is not None:
+        password_hash = member.password_hash
+    passwords_match = False
     ph = PasswordHasher()
     if member is None:
         raise APIError(401, "INVALID_CREDENTIALS")
     try:
-        ph.verify(member.password_hash, data.password)
+        ph.verify(password_hash, data.password)
     except VerifyMismatchError:
         raise APIError(401, "INVALID_CREDENTIALS")  # noqa
-
-    if member is None:
+    else:
+        passwords_match = True
+    if passwords_match and member is not None:
+        login_user(AuthUser(str(member.id)), data.remember)
+        return {}, 200
+    else:
         raise APIError(401, "INVALID_CREDENTIALS")
-    login_user(AuthUser(str(member.id)), data.remember)
-    return {}, 200
 
 
 @blueprint.delete("/sessions/")
