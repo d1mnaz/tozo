@@ -1,15 +1,9 @@
 import Alert from "@mui/material/Alert";
-import { type AlertColor } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import React, { useContext, useEffect, useState } from "react";
 
-import { ToastContext } from "../ToastContext";
+import { ToastContext, IToast } from "src/ToastContext";
 
-export interface IToast {
-  category?: AlertColor;
-  key: number;
-  message: string;
-}
 const Toasts = () => {
   const { toasts, setToasts } = useContext(ToastContext);
   const [open, setOpen] = useState(false);
@@ -22,6 +16,7 @@ const Toasts = () => {
       setOpen(true);
     }
   }, [open, setCurrentToast, setOpen, setToasts, toasts]);
+
   const onClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason !== "clickaway") {
       setOpen(false);

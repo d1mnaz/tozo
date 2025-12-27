@@ -2,11 +2,13 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { TextFieldProps } from "@mui/material/TextField";
 import { FieldHookConfig, useField } from "formik";
 import zxcvbn from "zxcvbn";
-import PasswordField from "./PasswordField";
+
+import PasswordField from "src/components/PasswordField";
 
 const scoreToDisplay = (score: number) => {
   let progressColor = "other.red";
   let helperText = "Weak";
+
   switch (score) {
     case 25:
       progressColor = "other.pink";
@@ -32,6 +34,7 @@ const PasswordWithStrengthField = (
   const [field] = useField<string>(props);
   const result = zxcvbn(field.value ?? "");
   const score = (result.score * 100) / 4;
+
   const [progressColor, helperText] = scoreToDisplay(score);
 
   return (
@@ -51,4 +54,5 @@ const PasswordWithStrengthField = (
     </>
   );
 };
+
 export default PasswordWithStrengthField;

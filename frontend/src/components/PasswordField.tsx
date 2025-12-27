@@ -5,11 +5,13 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { FieldHookConfig, useField } from "formik";
 import { useState } from "react";
-import { combineHelperText } from "../utils";
+
+import { combineHelperText } from "src/utils";
 
 const PasswordField = (props: FieldHookConfig<string> & TextFieldProps) => {
   const [field, meta] = useField<string>(props);
   const [showPassword, setShowPassword] = useState(false);
+
   return (
     <TextField
       {...props}

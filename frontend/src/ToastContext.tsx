@@ -1,4 +1,5 @@
-import { type AlertColor } from "@mui/material/Alert";
+import { AlertColor } from "@mui/material/Alert";
+
 import React, { createContext, useState } from "react";
 
 export interface IToast {

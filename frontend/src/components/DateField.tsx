@@ -3,10 +3,12 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { FieldHookConfig, useField } from "formik";
-import { combineHelperText } from "../utils";
+
+import { combineHelperText } from "src/utils";
 
 const DateField = (props: FieldHookConfig<Date | null> & TextFieldProps) => {
   const [field, meta, helpers] = useField<Date | null>(props);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
@@ -24,4 +26,5 @@ const DateField = (props: FieldHookConfig<Date | null> & TextFieldProps) => {
     </LocalizationProvider>
   );
 };
+
 export default DateField;

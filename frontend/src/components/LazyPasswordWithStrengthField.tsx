@@ -1,10 +1,13 @@
 import { TextFieldProps } from "@mui/material/TextField";
 import { lazy, Suspense } from "react";
 import { FieldHookConfig } from "formik";
-import PasswordField from "./PasswordField";
+
+import PasswordField from "src/components/PasswordField";
+
 const PasswordWithStrengthField = lazy(
-  () => import("./PasswordWithStrengthField"),
+  () => import("src/components/PasswordWithStrengthField"),
 );
+
 const LazyPasswordWithStrengthField = (
   props: FieldHookConfig<string> & TextFieldProps,
 ) => (
@@ -12,4 +15,5 @@ const LazyPasswordWithStrengthField = (
     <PasswordWithStrengthField {...props} />
   </Suspense>
 );
+
 export default LazyPasswordWithStrengthField;

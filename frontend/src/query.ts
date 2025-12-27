@@ -13,7 +13,7 @@ import {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "src/AuthContext";
 
 const MAX_FAILURES = 2;
 

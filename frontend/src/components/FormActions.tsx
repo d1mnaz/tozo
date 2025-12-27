@@ -2,11 +2,13 @@ import Button from "@mui/material/Button";
 import LoadingButton from "@mui/lab/LoadingButton";
 import Stack from "@mui/material/Stack";
 import { Link } from "react-router-dom";
+
 interface ILink {
   label: string;
   to: string;
   state?: any;
 }
+
 interface IProps {
   disabled: boolean;
   isSubmitting: boolean;
@@ -37,4 +39,5 @@ const FormActions = ({ disabled, isSubmitting, label, links }: IProps) => (
     ))}
   </Stack>
 );
+
 export default FormActions;

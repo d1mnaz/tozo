@@ -1,9 +1,11 @@
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 import { FieldHookConfig, useField } from "formik";
-import { combineHelperText } from "../utils";
+
+import { combineHelperText } from "src/utils";
 
 const EmailField = (props: FieldHookConfig<string> & TextFieldProps) => {
   const [field, meta] = useField<string>(props);
+
   return (
     <TextField
       {...props}

@@ -1,11 +1,13 @@
 import { formatISO } from "date-fns";
 import * as yup from "yup";
+
 const todoSchema = yup.object({
   complete: yup.boolean().required(),
   due: yup.date().nullable(),
   id: yup.number().required().positive().integer(),
   task: yup.string().trim().min(1).defined().strict(true),
 });
+
 export class Todo {
   complete: boolean;
   due: Date | null;

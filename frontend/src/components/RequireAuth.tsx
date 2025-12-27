@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-import { AuthContext } from "../AuthContext";
+import { AuthContext } from "src/AuthContext";
 
 interface IProps {
   children: React.ReactNode;

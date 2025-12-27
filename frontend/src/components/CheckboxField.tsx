@@ -3,7 +3,8 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import { FieldHookConfig, useField } from "formik";
-import { combineHelperText } from "../utils";
+
+import { combineHelperText } from "src/utils";
 
 type IProps = FieldHookConfig<boolean> & {
   fullWidth?: boolean;
